@@ -7913,7 +7913,11 @@ void full_loop_core(PictureControlSet *pcs_ptr, SuperBlock *sb_ptr, BlkStruct *b
         }
 #if FIX_CFL_OFF
         EbBool cfl_performed = EB_FALSE;
+#if ADD_CHROMA_INTRA_S1
+        if (!is_inter && context_ptr->md_stage == MD_STAGE_3)
+#else
         if (!is_inter)
+#endif
             if (candidate_buffer->candidate_ptr->intra_chroma_mode == UV_CFL_PRED) {
                 cfl_performed = EB_TRUE;
                 // If mode is CFL:
@@ -7973,7 +7977,11 @@ void full_loop_core(PictureControlSet *pcs_ptr, SuperBlock *sb_ptr, BlkStruct *b
         }
 
         // Check independant chroma vs. cfl
+#if ADD_CHROMA_INTRA_S1
+        if (!is_inter && context_ptr->md_stage == MD_STAGE_3)
+#else
         if (!is_inter)
+#endif
 #if FIX_CHROMA_PALETTE_INTERACTION
             if (candidate_ptr->palette_info.pmi.palette_size[0] == 0)
 #endif
