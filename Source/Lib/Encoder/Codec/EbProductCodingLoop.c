@@ -1840,7 +1840,7 @@ void set_md_stage_counts(PictureControlSet *pcs_ptr, ModeDecisionContext *contex
         context_ptr->md_stage_1_count[CAND_CLASS_0] = MAX(context_ptr->md_stage_1_count[CAND_CLASS_0], 1);
 
 #endif
-#if NICS_CLEANUP
+#if NICS_CLEANUP && !SHUT_FACTOR_7_8
 
             uint32_t min_nics =   pcs_ptr->parent_pcs_ptr->is_used_as_reference_flag ?
                 2 : 1 ;

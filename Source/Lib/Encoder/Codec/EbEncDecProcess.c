@@ -3454,6 +3454,14 @@ EbErrorType signal_derivation_enc_dec_kernel_oq(
             context_ptr->md_stage_2_3_class_prune_th =
             sequence_control_set_ptr->static_config.md_stage_2_3_class_prune_th;
 
+#if SHUT_NIC_PRUNING
+
+    context_ptr->md_stage_1_class_prune_th = (uint64_t)~0;
+    context_ptr->md_stage_1_cand_prune_th = (uint64_t)~0;
+    context_ptr->md_stage_2_3_class_prune_th = (uint64_t)~0;
+    context_ptr->md_stage_2_3_cand_prune_th = (uint64_t)~0;
+
+#endif
     // Weighting (expressed as a percentage) applied to
     // square shape costs for determining if a and b
     // shapes should be skipped. Namely:

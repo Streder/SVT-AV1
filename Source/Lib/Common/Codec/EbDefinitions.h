@@ -43,6 +43,10 @@ extern "C" {
 
 #if BEYOND_CS2
 
+//*************************//
+#define SHUT_NIC_PRUNING 1
+#define SHUT_FACTOR_7_8 1
+//*************************//
 
 
 
