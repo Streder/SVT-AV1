@@ -50,9 +50,13 @@ extern "C" {
 
 
 // Remove Chroma from INTRA / S0.
+#define REMOVE_CHROMA_INTRA_S0 0
 // Add Chroma @ INTRA / S1.
+#define ADD_CHROMA_INTRA_S1 0
 // Add Chroma @ INTER / S1.
+#define ADD_CHROMA_INTER_S1 0
 // Add Chroma @ INTER / S0 / S1.
+#define ADD_CHROMA_INTER_S0_S1 0
 //*************************//
 
 

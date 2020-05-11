@@ -3674,6 +3674,12 @@ void md_stage_0(
             ? EB_TRUE
             : EB_FALSE;
 
+#if ADD_CHROMA_INTER_S0_S1
+    context_ptr->md_staging_skip_chroma_pred = EB_FALSE;
+#endif
+#if REMOVE_CHROMA_INTRA_S0
+    context_ptr->md_staging_skip_chroma_pred = EB_TRUE;
+#endif
     context_ptr->md_staging_use_bilinear = (context_ptr->md_staging_mode == MD_STAGING_MODE_1 ||
                                             context_ptr->md_staging_mode == MD_STAGING_MODE_2)
                                                ? EB_TRUE
@@ -8064,6 +8070,25 @@ void md_stage_1(PictureControlSet *pcs_ptr, SuperBlock *sb_ptr, BlkStruct *blk_p
 #else
         context_ptr->md_staging_skip_inter_chroma_pred    = EB_TRUE;
 #endif
+#if ADD_CHROMA_INTRA_S1
+        context_ptr->md_staging_skip_full_chroma =
+            (context_ptr->target_class != CAND_CLASS_0 && context_ptr->target_class != CAND_CLASS_3)
+            ? EB_TRUE
+            : EB_FALSE;
+
+        context_ptr->md_staging_perform_intra_chroma_pred = 0;
+#endif
+#if ADD_CHROMA_INTER_S1 || ADD_CHROMA_INTER_S0_S1
+        context_ptr->md_staging_skip_chroma_pred =
+            (context_ptr->target_class == CAND_CLASS_0 || context_ptr->target_class == CAND_CLASS_3)
+            ? EB_TRUE
+            : EB_FALSE;
+
+        context_ptr->md_staging_skip_full_chroma =
+            (context_ptr->target_class == CAND_CLASS_0 || context_ptr->target_class == CAND_CLASS_3)
+            ? EB_TRUE
+            : EB_FALSE;
+#endif
         candidate_buffer->candidate_ptr->interp_filters   = 0;
         full_loop_core(pcs_ptr,
                        sb_ptr,
@@ -8344,7 +8369,11 @@ void md_stage_3(PictureControlSet *pcs_ptr, SuperBlock *sb_ptr, BlkStruct *blk_p
         }
 #endif
 #if FIX_CFL_OFF
+#if REMOVE_CHROMA_INTRA_S0
+        context_ptr->md_staging_perform_intra_chroma_pred = EB_TRUE;
+#else
         context_ptr->md_staging_perform_intra_chroma_pred = 0;
+#endif
         if (context_ptr->chroma_at_last_md_stage) {
             update_intra_chroma_mode(context_ptr, candidate_ptr, pcs_ptr);
         }
