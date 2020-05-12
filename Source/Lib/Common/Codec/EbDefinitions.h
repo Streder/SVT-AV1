@@ -45,14 +45,14 @@ extern "C" {
 
 //*************************//
 // REF = M0 + all pruning OFF + (7 / 8) OFF.
-#define SHUT_NIC_PRUNING 1
-#define SHUT_FACTOR_7_8 1
+#define SHUT_NIC_PRUNING 0
+#define SHUT_FACTOR_7_8 0
 
 
 // Remove Chroma from INTRA / S0.
 #define REMOVE_CHROMA_INTRA_S0 0
 // Add Chroma @ INTRA / S1.
-#define ADD_CHROMA_INTRA_S1 1
+#define ADD_CHROMA_INTRA_S1 0
 // Add Chroma @ INTER / S1.
 #define ADD_CHROMA_INTER_S1 0
 // Add Chroma @ INTER / S0 / S1.
